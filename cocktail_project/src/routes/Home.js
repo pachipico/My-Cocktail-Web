@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/client";
+import Header from "../components/Header";
 
-const GET_POPULAR_DRINKS = gql`
+const GET_DRINKS = gql`
 	{
-		getPopularDrinks {
+		getRandomSelection {
+			strDrink
+			idDrink
+			strDrinkThumb
+		}
+		getOneRandomDrink {
 			strDrink
 			idDrink
 			strDrinkThumb
@@ -23,17 +29,17 @@ const Container = styled.div`
 	height: 100%;
 `;
 
-const Header = styled.div`
-	color: white;
-`;
+const Body = styled.div``;
 
 function Home() {
-	const { loading, data } = useQuery(GET_POPULAR_DRINKS);
-	console.log(loading, data);
+	const { loading, data } = useQuery(GET_DRINKS);
+
+	console.log(data, loading);
+
 	return (
 		<Container>
-			<Header>What would you like to drink?</Header>
-			{/* use carousel render random 5 popular cocktails */}
+			{data && <Header getRandomSelection={data?.getRandomSelection} />}
+			<Body></Body>
 		</Container>
 	);
 }

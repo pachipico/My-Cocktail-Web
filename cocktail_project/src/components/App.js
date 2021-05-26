@@ -4,6 +4,8 @@ import Popular from "../routes/Popular";
 import Latest from "../routes/Latest";
 import Details from "../routes/Details";
 import NavBar from "./NavBar";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function App() {
 	return (
@@ -12,7 +14,7 @@ function App() {
 
 			<Switch>
 				<Route path='/' exact component={Home}></Route>
-				<Route path='/details/:id' component={Details}></Route>
+				<Route path='/details/:id' exact component={Details}></Route>
 				<Route path='/popular' component={Popular}></Route>
 				<Route path='/Latest' component={Latest}></Route>
 			</Switch>

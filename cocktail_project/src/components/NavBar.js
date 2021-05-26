@@ -22,6 +22,7 @@ function NavBar() {
 		font-size: 3rem;
 		font-weight: bold;
 		text-align: center;
+		font-family: zillaslab, palatino, "Palatino Linotype", serif;
 	`;
 
 	const NavItem = styled.div`
@@ -38,7 +39,7 @@ function NavBar() {
 			<NavLeft>
 				<Link to='/'>Home</Link>
 			</NavLeft>
-			<NavMiddle>The Coctails</NavMiddle>
+			<NavMiddle>🍸The Coctails🍸</NavMiddle>
 			<NavRight>
 				<NavItem>
 					<Link to='/popular'>Popular</Link>
