@@ -5,7 +5,7 @@ import styled from "styled-components";
 function NavBar() {
 	const Navbar = styled.header`
 		background-image: linear-gradient(-20deg, #810034, #ff005c, #fff600);
-		height: 10vh;
+		height: 11vh;
 		color: #4a1c40;
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr;
@@ -39,7 +39,12 @@ function NavBar() {
 			<NavLeft>
 				<Link to='/'>Home</Link>
 			</NavLeft>
-			<NavMiddle>🍸The Coctails🍸</NavMiddle>
+			<NavMiddle>
+				<div>🍸The Coctails🍸</div>
+				<div style={{ fontSize: "15px" }}>
+					배달의민족 ~땡겨요 같은 효과로 랜덤한 칵테일 1개 보여주기
+				</div>
+			</NavMiddle>
 			<NavRight>
 				<NavItem>
 					<Link to='/popular'>Popular</Link>
