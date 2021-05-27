@@ -123,20 +123,20 @@ function Details() {
 						<HeadImg>
 							<img
 								style={{ height: "100%" }}
-								src={data.getDrinksById[0].strDrinkThumb}
-								alt={data.getDrinksById[0].idDrink}
+								src={data?.getDrinksById[0].strDrinkThumb}
+								alt={data?.getDrinksById[0].idDrink}
 							/>
 						</HeadImg>
 						<HeadItem>
 							<div>
-								<h1>{data.getDrinksById[0].strDrink}</h1>
-								<p>{`Category: ${data.getDrinksById[0].strCategory}`}</p>
+								<h1>{data?.getDrinksById[0].strDrink}</h1>
+								<p>{`Category: ${data?.getDrinksById[0].strCategory}`}</p>
 
-								<p>{`Alcoholic: ${data.getDrinksById[0].strAlcoholic}`}</p>
+								<p>{`Alcoholic: ${data?.getDrinksById[0].strAlcoholic}`}</p>
 
-								<p>{`Served Glass: ${data.getDrinksById[0].strGlass}`}</p>
+								<p>{`Served Glass: ${data?.getDrinksById[0].strGlass}`}</p>
 							</div>
-							<div>{renderList(data.getDrinksById[0])}</div>
+							<div>{renderList(data?.getDrinksById[0])}</div>
 						</HeadItem>
 					</Header>
 					<div
