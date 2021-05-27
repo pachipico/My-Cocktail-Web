@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/client";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import RenderSlider from "../components/RenderSlider";
 
 const GET_DETAILS = gql`
 	query getDrinksById($id: Int!) {
@@ -32,6 +34,12 @@ const GET_DETAILS = gql`
 			strMeasure8
 			dateModified
 		}
+
+		getRandomSelection {
+			strDrink
+			idDrink
+			strDrinkThumb
+		}
 	}
 `;
 
@@ -46,11 +54,26 @@ const HeadImg = styled.div`
 	height: 100%;
 `;
 const HeadItem = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
 	height: 100%;
 	width: 100%;
+	padding: 30px;
 `;
 
-const Body = styled.div``;
+const Body = styled.div`
+	padding: 35px;
+	background-color: #ffc288;
+	border-radius: 4px;
+	text-align: center;
+	height: 308px;
+`;
+
+const Container = styled.div`
+	height: 100%;
+	overflow: hidden;
+`;
 
 function Details() {
 	let ingredients = [];
@@ -74,16 +97,19 @@ function Details() {
 		return (
 			<>
 				<div>
+					<h4>Ingredients </h4>
 					<ul>
-						{measurements.map((each) => {
-							if (each) return <li>{each}</li>;
+						{ingredients.map((ingredient, index) => {
+							if (ingredient) {
+								return (
+									<li>
+										<Link to>{ingredient}</Link>
+										<span>-{measurements[index]}</span>
+									</li>
+								);
+							}
 						})}
 					</ul>
-				</div>
-				<div>
-					{ingredients.map((each) => {
-						if (each) return <li>{each}</li>;
-					})}
 				</div>
 			</>
 		);
@@ -92,7 +118,7 @@ function Details() {
 	return (
 		<>
 			{!loading && (
-				<>
+				<Container>
 					<Header>
 						<HeadImg>
 							<img
@@ -102,24 +128,31 @@ function Details() {
 							/>
 						</HeadImg>
 						<HeadItem>
-							<h1>{data.getDrinksById[0].strDrink}</h1>
 							<div>
-								<div>sfdalk</div>
-								<ul>
-									<li>
-										<p>date</p>
-									</li>
-									<li>
-										<p>glass</p>
-									</li>
-								</ul>
+								<h1>{data.getDrinksById[0].strDrink}</h1>
+								<p>{`Category: ${data.getDrinksById[0].strCategory}`}</p>
+
+								<p>{`Alcoholic: ${data.getDrinksById[0].strAlcoholic}`}</p>
+
+								<p>{`Served Glass: ${data.getDrinksById[0].strGlass}`}</p>
 							</div>
+							<div>{renderList(data.getDrinksById[0])}</div>
 						</HeadItem>
 					</Header>
+					<div
+						style={{
+							position: "absolute",
+							left: "47%",
+							bottom: "278px",
+							textAlign: "center",
+						}}
+					>
+						<span>What else?</span>
+					</div>
 					<Body>
-						<div>{renderList(data.getDrinksById[0])}</div>
+						<RenderSlider randomSelection={data?.getRandomSelection} />
 					</Body>
-				</>
+				</Container>
 			)}
 		</>
 	);

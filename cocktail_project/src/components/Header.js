@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
+import RenderSlider from "./RenderSlider";
 
 const Head = styled.div`
 	justify-content: center;
@@ -35,29 +36,8 @@ function Header({ getRandomSelection }) {
 			<br />
 			<h4>How about these?</h4>
 
-			<div style={{ width: "80%" }}>
-				<Slider {...settings}>
-					{getRandomSelection &&
-						getRandomSelection.map((drink, i) => {
-							return (
-								<SlideCard key={i}>
-									<Link to={`/details/${drink.idDrink}`}>
-										<img
-											style={{
-												borderRadius: "6px",
-												height: "240px",
-												width: "100%",
-												padding: " 0, auto",
-											}}
-											src={drink.strDrinkThumb}
-											alt={drink.idDrink}
-										/>
-										<i>{drink.strDrink}</i>
-									</Link>
-								</SlideCard>
-							);
-						})}
-				</Slider>
+			<div style={{ width: "90%" }}>
+				<RenderSlider randomSelection={getRandomSelection} />
 			</div>
 		</Head>
 	);

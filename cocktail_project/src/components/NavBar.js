@@ -1,8 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { gql } from "apollo-boost";
+import { useQuery } from "@apollo/client";
+
+const GET_RANDOM_DRINK = gql`
+	{
+		getRandomSelection {
+			strDrink
+			idDrink
+		}
+	}
+`;
 
 function NavBar() {
+	const { data, loading } = useQuery(GET_RANDOM_DRINK);
 	const Navbar = styled.header`
 		background-image: linear-gradient(-20deg, #810034, #ff005c, #fff600);
 		height: 11vh;
@@ -41,9 +53,7 @@ function NavBar() {
 			</NavLeft>
 			<NavMiddle>
 				<div>🍸The Coctails🍸</div>
-				<div style={{ fontSize: "15px" }}>
-					배달의민족 ~땡겨요 같은 효과로 랜덤한 칵테일 1개 보여주기
-				</div>
+				<div style={{ fontSize: "15px" }}>배민 ~땡겨요 같은 효과 추가.</div>
 			</NavMiddle>
 			<NavRight>
 				<NavItem>
