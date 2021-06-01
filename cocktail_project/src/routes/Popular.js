@@ -45,7 +45,11 @@ function Popular() {
 								<Card>
 									<Link to={`/details/${drink.idDrink}`}>
 										<img
-											style={{ width: "100%", marginBottom: "17px" }}
+											style={{
+												width: "100%",
+												marginBottom: "10px",
+												borderRadius: "5px",
+											}}
 											src={drink.strDrinkThumb}
 											alt={drink.idDrink}
 										/>

@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect, useState } from "react";
+
 import { useParams } from "react-router-dom";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/client";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import RenderSlider from "../components/RenderSlider";
+import RenderList from "../components/RenderList";
+import { prominent } from "color.js";
 
 const GET_DETAILS = gql`
 	query getDrinksById($id: Int!) {
@@ -46,7 +48,7 @@ const GET_DETAILS = gql`
 const Header = styled.div`
 	display: flex;
 	height: 400px;
-	background-color: #480032;
+
 	color: white;
 	padding: 20px;
 `;
@@ -76,50 +78,35 @@ const Container = styled.div`
 `;
 
 function Details() {
-	let ingredients = [];
-	let measurements = [];
+	const [background, setBackground] = useState([]);
 	const { id } = useParams();
 	const { loading, data } = useQuery(GET_DETAILS, {
 		variables: { id: parseInt(id) },
 	});
-	console.log(loading, data?.getDrinksById[0]);
-	const renderList = (obj) => {
-		for (const [key, value] of Object.entries(obj)) {
-			if (key.slice(0, 13) === `strIngredient`) {
-				ingredients.push(value);
-			}
-			if (key.slice(0, 10) === `strMeasure`) {
-				measurements.push(value);
-			}
-		}
-		console.log(measurements);
-		console.log(ingredients);
-		return (
-			<>
-				<div>
-					<h4>Ingredients </h4>
-					<ul>
-						{ingredients.map((ingredient, index) => {
-							if (ingredient) {
-								return (
-									<li>
-										<Link to>{ingredient}</Link>
-										<span>-{measurements[index]}</span>
-									</li>
-								);
-							}
-						})}
-					</ul>
-				</div>
-			</>
-		);
+
+	const getColor = async (img) => {
+		const colors = await prominent(img, { format: "hex" });
+		setBackground(colors);
+		console.log(colors);
+		console.log(background);
 	};
+
+	console.log(loading, data?.getDrinksById[0]);
+	useEffect(() => {
+		if (!loading) {
+			getColor(data?.getDrinksById[0]?.strDrinkThumb);
+		}
+	}, [loading]);
 
 	return (
 		<>
-			{!loading && (
+			{!loading && background && (
 				<Container>
-					<Header>
+					<Header
+						style={{
+							background: `linear-gradient(${background[0]}, ${background[1]}, ${background[2]})`,
+						}}
+					>
 						<HeadImg>
 							<img
 								style={{ height: "100%" }}
@@ -131,14 +118,14 @@ function Details() {
 							<div>
 								<h1>{data?.getDrinksById[0].strDrink}</h1>
 								<p>{`Category: ${data?.getDrinksById[0].strCategory}`}</p>
-
 								<p>{`Alcoholic: ${data?.getDrinksById[0].strAlcoholic}`}</p>
-
 								<p>{`Served Glass: ${data?.getDrinksById[0].strGlass}`}</p>
+								<p>{`Date Modified: ${data?.getDrinksById[0].dateModified}`}</p>
 							</div>
-							<div>{renderList(data?.getDrinksById[0])}</div>
+							<RenderList obj={data?.getDrinksById[0]} />
 						</HeadItem>
 					</Header>
+
 					<div
 						style={{
 							position: "absolute",
