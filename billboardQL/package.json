@@ -1,0 +1,29 @@
+{
+  "name": "billboardql",
+  "version": "1.0.0",
+  "description": "Billboard API based on GraphQL.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pachipico/billboardQL.git"
+  },
+  "author": "JH Seo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pachipico/billboardQL/issues"
+  },
+  "homepage": "https://github.com/pachipico/billboardQL#readme",
+  "dependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/node": "^7.14.2",
+    "@babel/preset-env": "^7.14.4",
+    "axios": "^0.21.1",
+    "billboard-top-100": "^2.5.9",
+    "dotenv": "^10.0.0",
+    "graphql-yoga": "^1.18.3"
+  }
+}
